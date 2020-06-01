@@ -9,21 +9,19 @@
         </b-navbar-nav>
 
         <!-- Right aligned nav items -->
-        <b-navbar-nav class="ml-auto">
-          <b-nav-item right>
-            <!-- Using 'button-content' slot -->
-            <template v-if="user.loggedIn">
-              <div class="nav-item">{{user.data.displayName}}</div>
-              <li class="nav-item">
-                <a class="nav-link" @click.prevent="signOut">Sign out</a>
-              </li>
-            </template>
-            <template v-else>
-              <li class="nav-item">
-                <router-link to="/login" class="nav-link">Login</router-link>
-              </li>
-            </template>
-          </b-nav-item>
+        <b-navbar-nav class="ml-auto" right>
+          <template v-if="user.loggedIn">
+            <b-nav-item-dropdown :text="user.data.email" right>
+              <b-dropdown-item href="#">Account</b-dropdown-item>
+              <b-dropdown-item href="#">Settings</b-dropdown-item>
+              <b-dropdown-item @click.prevent="signOut">Sign out</b-dropdown-item>
+            </b-nav-item-dropdown>
+          </template>
+          <template v-else>
+            <li class="nav-item">
+              <router-link to="login" class="nav-link">Login</router-link>
+            </li>
+          </template>
         </b-navbar-nav>
       </b-collapse>
     </b-navbar>
@@ -35,7 +33,7 @@ import firebase from "firebase";
 export default {
   computed: {
     ...mapGetters({
-// map `this.user` to `this.$store.getters.user`
+      // map `this.user` to `this.$store.getters.user`
       user: "user"
     })
   },
