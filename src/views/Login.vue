@@ -6,8 +6,8 @@
                 <div class="card" >
                   <div class="card-header">Login</div>
                   <div class="card-body">
-                      <div v-if="error" class="alert alert-danger">{{error}}</div>
-                      <form id="formLogin" action="#" @submit.prevent="submit">
+                      <!-- <div v-if="error" class="alert alert-danger">{{error}}</div> -->
+                      <form id="formLogin" action="#" @submit.prevent="onLoginIn">
                         <div class="form-group row">
                             <label for="email" class="col-md-4 col-form-label text-md-right">Email</label>
                             <div class="col-md-6">
@@ -35,7 +35,7 @@
                             </div>
                         </div>
                         <hr/>
-                        <b-button class="btn btn-primary btn-lg btn-block" type="submit" variant="primary">Login</b-button>
+                        <b-button type="submit" class="btn btn-primary btn-lg btn-block" variant="primary">Login</b-button>
                       </form>
                   </div>
               </div>
@@ -43,15 +43,12 @@
           </div>
         </template>
         <template v-else>
-            <div><h1>Hello {{user.data.email}}</h1></div>
+            <div><h1>Hello</h1></div>
         </template>
   </div>
 </template>
 
 <script>
-import firebase from "firebase";
-import { mapGetters } from "vuex";
-
 export default {
   data() {
     return {
@@ -63,23 +60,14 @@ export default {
     }
   },
   methods: {
-    submit(event) {
-        event.preventDefault();
-
-        firebase.auth().signInWithEmailAndPassword(this.form.email, this.form.password)
-        .then(() => {
-            this.$router.push('/');
-        })
-        .catch(err => {
-            this.error = err.message;
-        });
+    onLoginIn() {
+      this.$store.dispatch('loginIn', {email: this.form.email, password: this.form.password})
     }
   },
   computed: {
-    ...mapGetters({
-    // map `this.user` to `this.$store.getters.user`
-      user: "user"
-    })
+    user () {
+      return this.$store.getters.user
+    }
   }
 };
 </script>

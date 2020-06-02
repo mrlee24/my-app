@@ -11,10 +11,10 @@
         <!-- Right aligned nav items -->
         <b-navbar-nav class="ml-auto" right>
           <template v-if="user.loggedIn">
-            <b-nav-item-dropdown :text="user.data.email" right>
+            <b-nav-item-dropdown text="User" right>
               <b-dropdown-item href="#">Account</b-dropdown-item>
               <b-dropdown-item href="#">Settings</b-dropdown-item>
-              <b-dropdown-item @click.prevent="signOut">Sign out</b-dropdown-item>
+              <b-dropdown-item @click.prevent="onLogOut">Sign out</b-dropdown-item>
             </b-nav-item-dropdown>
           </template>
           <template v-else>
@@ -28,26 +28,17 @@
 </template>
 
 <script>
-import { mapGetters } from "vuex";
-import firebase from "firebase";
+
 export default {
-  computed: {
-    ...mapGetters({
-      // map `this.user` to `this.$store.getters.user`
-      user: "user"
-    })
-  },
   methods: {
-    signOut() {
-      firebase
-        .auth()
-        .signOut()
-        .then(() => {
-          this.$router.replace({
-            name: "home"
-          });
-        });
+    onLogOut () {
+      this.$store.dispatch('logOut')
+    }
+  },
+  computed: {
+    user () {
+      return this.$store.getters.user
     }
   }
-};
+}
 </script>
