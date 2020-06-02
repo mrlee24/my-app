@@ -12,8 +12,6 @@ Vue.use(BootstrapVue)
 // Optionally install the BootstrapVue icon components plugin
 Vue.use(IconsPlugin)
 
-Vue.config.productionTip = false
-
 const configOptions = {
   apiKey: "AIzaSyBZbS5nhN_QxOnFyogMP3sZ0jqZRsiEFss",
   authDomain: "tenant-manage.firebaseapp.com",
@@ -30,7 +28,7 @@ firebase.auth().onAuthStateChanged(user => {
   store.dispatch("fetchUser", user);
 });
 
-
+Vue.config.productionTip = false
 
 new Vue({
   router,

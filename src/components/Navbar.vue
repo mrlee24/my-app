@@ -8,7 +8,6 @@
         <b-navbar-nav>
         </b-navbar-nav>
 
-        <!-- Right aligned nav items -->
         <b-navbar-nav class="ml-auto" right>
           <template v-if="user.loggedIn">
             <b-nav-item-dropdown text="User" right>
