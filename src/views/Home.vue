@@ -1,6 +1,6 @@
 <template>
   <div class="container" v-if="user.loggedIn">
-    <h1 align="center">Hello {{user.data.email}} !!</h1>
+    <h1 align="center">Hello</h1>
   </div>
   <div v-else>
     <h1 align="center">Please login into your account</h1>
@@ -8,13 +8,11 @@
 </template>
 
 <script>
-import { mapGetters } from "vuex";
 export default {
 computed: {
-    ...mapGetters({
-    // map `this.user` to `this.$store.getters.user`
-      user: "user"
-    })
+    user () {
+      return this.$store.getters.user
+    }
   }
 }
 </script>

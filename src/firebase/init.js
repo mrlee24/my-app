@@ -1,5 +1,3 @@
-import { initializeApp, database, auth } from "firebase"
-
 const configOptions = {
     apiKey: "AIzaSyBZbS5nhN_QxOnFyogMP3sZ0jqZRsiEFss",
     authDomain: "tenant-manage.firebaseapp.com",
@@ -11,9 +9,8 @@ const configOptions = {
     measurementId: "G-TPF9EDD0WW"
   };
   
-initializeApp(configOptions);
-
-export default {
-    database: database(),
-    auth
-}
+  firebase.initializeApp(configOptions);
+  firebase.auth().onAuthStateChanged(user => {
+    store.dispatch("fetchUser", user);
+  });
+  

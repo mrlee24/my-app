@@ -7,7 +7,7 @@
                   <div class="card-header">Login</div>
                   <div class="card-body">
                       <div v-if="error" class="alert alert-danger">{{error}}</div>
-                      <form id="formLogin" action="#" @submit.prevent="submit">
+                      <form id="formLogin" action="#" @submit.prevent="onSignin">
                         <div class="form-group row">
                             <label for="email" class="col-md-4 col-form-label text-md-right">Email</label>
                             <div class="col-md-6">
@@ -49,8 +49,6 @@
 </template>
 
 <script>
-import firebase from "firebase";
-import { mapGetters } from "vuex";
 
 export default {
   data() {
@@ -62,24 +60,17 @@ export default {
       error: null
     }
   },
+  
   methods: {
-    submit(event) {
-        event.preventDefault();
-
-        firebase.auth().signInWithEmailAndPassword(this.form.email, this.form.password)
-        .then(() => {
-            this.$router.push('/');
-        })
-        .catch(err => {
-            this.error = err.message;
-        });
-    }
+    onSignin () {
+      this.$store.dispatch('signUserIn', {email: this.form.email, password: this.form.password})
+    },
   },
+
   computed: {
-    ...mapGetters({
-    // map `this.user` to `this.$store.getters.user`
-      user: "user"
-    })
+    user () {
+      return this.$store.getters.user
+    }
   }
 };
 </script>

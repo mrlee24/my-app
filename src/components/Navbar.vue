@@ -1,6 +1,6 @@
 <template>
     <b-navbar toggleable="lg" type="dark" variant="info">
-      <b-navbar-brand href="#">WebApp</b-navbar-brand>
+      <b-navbar-brand to="/">WebApp</b-navbar-brand>
 
       <b-navbar-toggle target="nav-collapse"></b-navbar-toggle>
 
@@ -13,7 +13,7 @@
             <b-nav-item-dropdown :text="user.data.email" right>
               <b-dropdown-item href="#">Account</b-dropdown-item>
               <b-dropdown-item href="#">Settings</b-dropdown-item>
-              <b-dropdown-item @click.prevent="signOut">Sign out</b-dropdown-item>
+              <b-dropdown-item @click.prevent="onLogout">Sign out</b-dropdown-item>
             </b-nav-item-dropdown>
           </template>
           <template v-else>
@@ -27,25 +27,17 @@
 </template>
 
 <script>
-import { mapGetters } from "vuex";
-import firebase from "firebase";
 export default {
   computed: {
-    ...mapGetters({
-      // map `this.user` to `this.$store.getters.user`
-      user: "user"
-    })
+    user () {
+      return this.$store.getters.user
+    }
   },
+
   methods: {
-    signOut() {
-      firebase
-        .auth()
-        .signOut()
-        .then(() => {
-          this.$router.replace({
-            name: "home"
-          });
-        });
+    onLogout () {
+      this.$store.dispatch('signUserOut', null)
+      //this.$router.push('/')
     }
   }
 };

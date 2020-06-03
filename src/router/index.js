@@ -9,18 +9,12 @@ Vue.use(VueRouter)
   {
     path: '/login',
     name: 'Login',
-    component: Login,
-    meta: {
-      guest: true
-    }
+    component: Login
   },
   {
     path: '/',
     name: 'Home',
-    component: Home, 
-    meta: { 
-      auth: true 
-    }
+    component: Home
   }
 ]
 
