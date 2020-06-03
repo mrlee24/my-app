@@ -22,8 +22,8 @@ export const mutations = {
 
 export const actions = {
     signUserIn ({commit}, payload) {
-        // commit('setLoading', true)
-        // commit('clearError')
+        commit('SET_LOADING', true)
+        commit('CLEAR_ERROR')
         firebase.auth().signInWithEmailAndPassword(payload.email, payload.password)
             .then (
                 commit("SET_USER", {
@@ -34,15 +34,15 @@ export const actions = {
                 })
             )
             .catch(error => {
-            //   commit('setLoading', false)
-            //   commit('setError', error)
+              commit('SET_LOADING', false)
+              commit('SET_ERROR', error)
               console.log(error)
             }
           )
       },
 
-    signUserOut ({ commit }, payload) {
-        commit("SET_USER", payload)
+    signUserOut ({ commit }) {
+        commit("SET_USER", null)
         firebase.auth().signOut()
     },
 

@@ -6,7 +6,7 @@
                 <div class="card" >
                   <div class="card-header">Login</div>
                   <div class="card-body">
-                      <div v-if="error" class="alert alert-danger">{{error}}</div>
+                      <div v-if="error" class="alert alert-danger" @dismissed="onDismissed" >{{error.message}}</div>
                       <form id="formLogin" action="#" @submit.prevent="onSignin">
                         <div class="form-group row">
                             <label for="email" class="col-md-4 col-form-label text-md-right">Email</label>
@@ -35,7 +35,7 @@
                             </div>
                         </div>
                         <hr/>
-                        <b-button class="btn btn-primary btn-lg btn-block" type="submit" variant="primary">Login</b-button>
+                        <b-button class="btn btn-primary btn-lg btn-block" type="submit" variant="primary" :disabled="loading" :loading="loading">Login</b-button>
                       </form>
                   </div>
               </div>
@@ -43,7 +43,7 @@
           </div>
         </template>
         <template v-else>
-            <div><h1>Hello {{user.data.email}}</h1></div>
+            <div><h1>Hello {{(user.data.email)}}</h1></div>
         </template>
   </div>
 </template>
@@ -57,7 +57,6 @@ export default {
         email: '',
         password: ''
       },
-      error: null
     }
   },
   
@@ -65,11 +64,23 @@ export default {
     onSignin () {
       this.$store.dispatch('signUserIn', {email: this.form.email, password: this.form.password})
     },
+        
+    onDismissed () {
+      this.$store.dispatch('clearError')
+    }
   },
 
   computed: {
     user () {
       return this.$store.getters.user
+    },
+
+    error () {
+      return this.$store.getters.error
+    },
+      
+    loading () {
+      return this.$store.getters.loading
     }
   }
 };
