@@ -11,17 +11,17 @@ export const getters = {
 }
 
 export const mutations = {
-    SET_LOGGED_IN(state, value) {
+    SET_LOGGED_IN (state, value) {
         state.user.loggedIn = value;
     },
 
-    SET_USER(state, data) {
+    SET_USER (state, data) {
         state.user.data = data;
     }
 }
 
 export const actions = {
-    signUserIn ({commit}, payload) {
+    signUserIn ({ commit }, payload) {
         commit('SET_LOADING', true)
         commit('CLEAR_ERROR')
         firebase.auth().signInWithEmailAndPassword(payload.email, payload.password)
@@ -41,8 +41,9 @@ export const actions = {
       },
 
     signUserOut ({ commit }) {
-        commit("SET_USER", null)
-        firebase.auth().signOut()
+        firebase.auth().signOut().then(() => {
+            commit("SET_USER", null)
+        })
     },
 
     fetchUser({ commit }, user) {
@@ -55,9 +56,9 @@ export const actions = {
                 photoUrl: user.photoURL
           });
         } else {
-          commit("SET_USER", null);
+          commit("SET_USER", user);
         }
-      }
+    }
 }
 
 export default {
