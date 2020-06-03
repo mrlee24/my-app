@@ -30,8 +30,7 @@ export const actions = {
                     id: payload.uid,
                     name: payload.displayName,
                     email: payload.email,
-                    photoUrl: payload.photoURL
-                })
+                    photoUrl: payload.photoURL})
             )
             .catch(error => {
               commit('SET_LOADING', false)
