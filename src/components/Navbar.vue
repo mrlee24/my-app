@@ -7,7 +7,12 @@
         </b-navbar-nav>
         <b-navbar-nav class="ml-auto" right>
           <template v-if="user.loggedIn">
-            <b-nav-item-dropdown :text="user.data.email" right>
+            <b-nav-item-dropdown v-if="!user.data.displayName" :text="user.data.email" right>
+              <b-dropdown-item to="/Profile">Account</b-dropdown-item>
+              <hr/>
+              <b-dropdown-item @click.prevent="onLogout">Sign out</b-dropdown-item>
+            </b-nav-item-dropdown>
+            <b-nav-item-dropdown v-else :text="user.data.displayName" right>
               <b-dropdown-item to="/Profile">Account</b-dropdown-item>
               <hr/>
               <b-dropdown-item @click.prevent="onLogout">Sign out</b-dropdown-item>
