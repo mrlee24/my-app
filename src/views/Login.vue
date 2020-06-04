@@ -9,8 +9,10 @@
                     <h5 class="card-title text-center">Login</h5>
                     <hr/>
                     <form class="form-signin" @submit.prevent="onSignin">
-                      <div v-if="error" class="alert alert-danger" @dismissed="onDismissed" >{{error.message}}</div>
-                      <div class="form-group">
+                      <div class="mx-auto" role="alert" v-if="error">
+                        <span v-if="error.code == 'auth/too-many-requests'" class="error text-danger" @dismissed="onDismissed">{{error.message}}</span>
+                      </div>
+                      <div class="form-group mt-3">
                         <input
                           id="email"
                           type="email"
@@ -22,7 +24,10 @@
                           v-model="form.email" 
                           placeholder="Email"/>
                       </div>
-                      <div class="form-group">
+                      <div v-if="error" role="alert">
+                        <span v-if="error.code == 'auth/user-not-found' && error !== null" class="error text-danger" @dismissed="onDismissed">{{error.message}}</span>
+                      </div>
+                      <div class="form-group mt-3">
                         <input
                           id="password"
                           type="password"
@@ -31,6 +36,9 @@
                           required
                           v-model="form.password" 
                           placeholder="Password"/>
+                      </div>
+                      <div v-if="error" role="alert">
+                        <span v-if="error.code == 'auth/wrong-password' && error !== null" class="error text-danger" @dismissed="onDismissed">{{error.message}}</span>
                       </div>
                       <hr/>
                       <!-- <div class="custom-control custom-checkbox mb-3">
@@ -65,13 +73,6 @@ export default {
   methods: {
     onSignin () {
       this.$store.dispatch('signUserIn', {email: this.form.email, password: this.form.password})
-        .then(() => {
-          this.form.email = '';
-          this.form.password = '';
-        })
-        .then(() => {
-          this.$router.push('/')
-        })
     },
         
     onDismissed () {

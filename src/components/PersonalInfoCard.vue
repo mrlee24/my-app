@@ -8,61 +8,51 @@
                         <div class="card-body">
                             <h5 class="card-title text-center">Personal Info</h5>
                             <hr/>
-                            <form class="form-profile">
+                            <form class="container form-profile">
                                 <div v-if="error" class="alert alert-danger" @dismissed="onDismissed" >{{error.message}}</div>
-                                <div class="form-group form-inline"> 
+                                <div class="form-group text-center mt-5">
+                                  <img src="@/assets/default-avatar.png" alt="Avatar" class="img-fluid img-thumbnail" v-if="!user.data.photoUrl">
+                                  <img :src="user.data.photoUrl" alt="Avatar" class="img-fluid img-thumbnail" v-else>
+                                </div>
+                                <div class="form-group mx-auto my-5"> 
+                                    <label for="email">Email: </label>
                                     <input
                                         id="email"
                                         type="email"
                                         class="form-control mx-auto"
                                         name="email"
-                                        :disabled="disabled == 0"
+                                        :disabled="disabled == 1"
                                         :value="user.data.email"/>
-                                    <div class="btn-group mr-2 mx-auto btn-sm" role="group" aria-lable="Function Group">
-                                        <a class="btn btn-info"  @click.prevent="disabled = 1"><b-icon icon="pencil-square"></b-icon></a>
-                                        <a class="btn btn-secondary"  @click.prevent="disabled = 0"><b-icon icon="x-octagon"></b-icon></a>
-                                    </div>
                                 </div>
-                                <div class="form-group">
-                                    <div class="form-inline"> 
-                                        <template v-if="!user.data.name">
-                                        <input
-                                            id="displayName"
-                                            type="text"
-                                            class="form-control mx-auto"
-                                            name="email"
-                                            :disabled="disabled == 0"
-                                            v-model="form.name"
-                                            placeholder="Edit your username here..." />
-                                        </template>
-                                        <template v-else>
-                                            <input
-                                                id="email"
-                                                type="email"
-                                                class="form-control mx-auto"
-                                                name="email"
-                                                :disabled="disabled == 0"
-                                                :value="user.data.name"/>
-                                        </template>
-                                        <div class="btn-group  mx-auto btn-sm" role="group" aria-lable="Function Group">
-                                            <a class="btn btn-info"  @click.prevent="disabled = 1"><b-icon icon="pencil-square"></b-icon></a>
-                                            <a class="btn btn-secondary"  @click.prevent="disabled = 0"><b-icon icon="x-octagon"></b-icon></a>
-                                        </div>
-                                    </div>
+                                <div class="form-group mx-auto my-5">
+                                    <label for="displayName">Display Name:</label>
+                                      <input
+                                          id="displayName"
+                                          type="text"
+                                          class="form-control mx-auto"
+                                          name="displayName"
+                                          :disabled="activateEdit == 0"
+                                          v-model="form.displayName"
+                                          :placeholder="user.data.displayName" />
                                 </div>
-                                <div class="form-group mx-auto">
-                                    <b-form-file
-                                        v-model="form.photoUrl"
-                                        placeholder="Upload or drop your image here..."
-                                        drop-placeholder="Drop file here..."
-                                    ></b-form-file>
+                                <div class="form-group mx-auto my-5">
+                                    <label for="photoURL">Upload Photo:</label>
+                                      <input
+                                          id="photoURL"
+                                          type="url"
+                                          class="form-control mx-auto"
+                                          name="photoURL"
+                                          :disabled="activateEdit == 0"
+                                          v-model="form.photoURL"
+                                          :placeholder="user.data.photoUrl" />
                                 </div>
                                 <hr/>
-                                <div class="container form-group">
-                                    <div class="wrapper text-center">
-                                        <div class="btn-group mt-3 mx-auto btn-lg" role="group" aria-label="Submit Group"> 
-                                            <a class="btn btn-outline-info"  @click.prevent="disabled = 1">Save</a>
-                                            <a class="btn btn-outline-danger"  @click.prevent="disabled = 0">Reset</a>
+                                <div class="container form-group mt-3">
+                                    <div class="row form-inline mx-auto text-center">
+                                        <div class="col mx-auto btn-lg btn-fluid " role="group" aria-label="Submit Group"> 
+                                            <a class="btn btn-outline-info col-sm-5 mr-4"  @click.prevent="activateEdit = 1" v-if="activateEdit == 0"><b-icon icon="pencil"></b-icon> Edit</a>
+                                            <a class="btn btn-outline-info col-sm-5 mr-4"  @click.prevent="onUpdateUser" v-else><b-icon icon="pencil"></b-icon> Save</a>
+                                            <a class="btn btn-outline-danger col-sm-5"  @click.prevent="activateEdit = 0"><b-icon icon="x"></b-icon>Cancel</a>
                                         </div>
                                     </div>
                                 </div>
@@ -82,29 +72,40 @@ data() {
     return {
       form: {
         email: '',
-        password: ''
+        displayName: '',
+        photoURL: ''
       },
-      disabled: 0
+      activateEdit: 0,
+      disabled: 1,
     }
   },
-    computed: {
-        user () {
-        return this.$store.getters.user
-        },
-
-        error () {
-        return this.$store.getters.error
-        },
+  methods: {
+    onUpdateUser () {
+      this.$store.dispatch('updateUserProfile', {displayName: this.form.displayName, photoURL: this.form.photoURL})
+      console.log(this.form.displayName)
+    },
         
-        loading () {
+    onDismissed () {
+      this.$store.dispatch('clearError')
+    }
+  },
+  computed: {
+      user () {
+        return this.$store.getters.user
+      },
+
+      error () {
+        return this.$store.getters.error
+      },
+        
+      loading () {
         return this.$store.getters.loading
-        }
+      }
     }
 }
 </script>
 
 <style scoped>
-
 .card-profile {
   border: 0;
   border-radius: 1rem;

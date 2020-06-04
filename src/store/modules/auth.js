@@ -28,9 +28,9 @@ export const actions = {
             .then (
                 commit("SET_USER", {
                     id: payload.uid,
-                    name: payload.displayName,
+                    displayName: payload.displayName,
                     email: payload.email,
-                    photoUrl: payload.photoURL})
+                    photoURL: payload.photoURL})
             )
             .catch(error => {
               commit('SET_LOADING', false)
@@ -46,17 +46,30 @@ export const actions = {
         })
     },
 
+    updateUserProfile({commit}, payload) {
+        const user = firebase.auth().currentUser
+
+        user.updateProfile({
+            displayName: payload.displayName,
+            photoURL: payload.photoURL
+        })
+        .then(() => {
+            commit("SET_USER", user)
+        })
+    },
+
     fetchUser({ commit }, user) {
         commit("SET_LOGGED_IN", user !== null);
         if (user) {
           commit("SET_USER", {
                 id: user.uid,
-                name: user.displayName,
+                displayName: user.displayName,
                 email: user.email,
                 photoUrl: user.photoURL
           });
         } else {
           commit("SET_USER", user);
+          commit("CLEAR_ERROR");
         }
     }
 }
