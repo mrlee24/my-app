@@ -1,5 +1,5 @@
 <template>
-  <div class="container" allign-v="center">
+  <div class="container">
         <template v-if="!user.loggedIn">
           <div class="container">
             <div class="row">
@@ -99,7 +99,7 @@ export default {
 
 .card-signin {
   border: 0;
-  border-radius: 1rem;
+  border-radius: 2rem;
   box-shadow: 0 0.5rem 1rem 0 rgba(0, 0, 0, 0.1);
 }
 

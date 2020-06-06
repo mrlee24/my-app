@@ -1,5 +1,15 @@
 <template>
     <b-navbar toggleable="lg" type="dark" variant="info">
+      <div v-if="user.loggedIn">
+        <a class="btn navbar-toggler-icon mr-4" v-b-toggle.sidebar-backdrop></a>
+
+        <b-sidebar id="sidebar-backdrop" :backdrop-variant="variant" backdrop shadow>
+          <div class="px-3 py-2">
+            
+          </div>
+        </b-sidebar>
+      </div>
+     
       <b-navbar-brand to="/">WebApp</b-navbar-brand>
       <b-navbar-toggle target="nav-collapse"></b-navbar-toggle>
       <b-collapse id="nav-collapse" is-nav>
