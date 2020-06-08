@@ -53,9 +53,6 @@
             </div>
           </div>
         </template>
-        <template v-else>
-            <div><h1>Hello {{user.data.email}}</h1></div>
-        </template>
   </div>
 </template>
 
