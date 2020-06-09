@@ -1,25 +1,9 @@
 <template>
-  <div class="row">
-    <div class="col-xs-8 col-sm-8 col-md-8 col-lg-12">
       <div class="card card-profile">
         <div class="card-body">
-          <h5 class="card-title text-center">Personal Info</h5>
+          <h5 class="card-title text-center">Your Profile</h5>
           <hr />
           <form class="container form-profile">
-            <div class="form-group text-center m-4">
-              <img
-                src="@/assets/default-avatar.png"
-                alt="Avatar"
-                class="img-fluid img-thumbnail"
-                v-if="!user.data.photoUrl"
-              />
-              <img
-                :src="user.data.photoUrl"
-                alt="Avatar"
-                class="img-fluid img-thumbnail"
-                v-else
-              />
-            </div>
             <hr />
             <div class="row">
               <div class="col border-right">
@@ -71,7 +55,7 @@
                     :placeholder="user.data.displayName"
                   />
 
-                  <div class="form-inline float-right my-2">
+                  <div class="form-inline float-right my-2" v-if="profileEdit.disabledEditProfile">
                     <a
                       class="btn btn-outline-info mr-2"
                       title="Edit your display name"
@@ -224,43 +208,12 @@
             <div
               v-if="error"
               class="alert alert-danger"
-              @dismissed="onDismissed"
-            >
+              @dismissed="onDismissed">
               {{ error.message }}
-            </div>
-            <hr />
-            <div class="container form-group mt-3">
-              <div class="row form-inline mx-auto text-center">
-                <div
-                  class="col mx-auto btn-lg btn-fluid "
-                  role="group"
-                  aria-label="Submit Group"
-                >
-                  <!-- <a
-                    class="btn btn-outline-info col-sm-5 mr-4"
-                    @click.prevent="disabled = 0"
-                    v-if="disabled == 1"
-                    ><b-icon icon="pencil"></b-icon> Edit</a
-                  >
-                  <a
-                    class="btn btn-outline-info col-sm-5 mr-4"
-                    @click.prevent="onUpdateUser"
-                    v-else
-                    ><b-icon icon="pencil"></b-icon> Save</a
-                  >
-                  <a
-                    class="btn btn-outline-danger col-sm-5"
-                    @click.prevent="disabled = 1"
-                    ><b-icon icon="x"></b-icon>Cancel</a
-                  > -->
-                </div>
-              </div>
             </div>
           </form>
         </div>
       </div>
-    </div>
-  </div>
 </template>
 
 <script>
@@ -300,6 +253,10 @@ export default {
   computed: {
     user() {
       return this.$store.getters.user;
+    },
+
+    profileEdit() {
+      return this.$store.getters.profileEdit;
     },
 
     error() {

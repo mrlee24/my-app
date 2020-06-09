@@ -1,12 +1,16 @@
 export default {
     state: {
       loading: false,
-      error: null
+      error: null,
+      profileEdit: false,
     },
     
     mutations: {
       SET_LOADING (state, payload) {
         state.loading = payload
+      },
+      SET_EDIT_PROFILE(state, payload) {
+        state.profileEdit = payload
       },
       SET_ERROR (state, payload) {
         state.error = payload
@@ -21,6 +25,10 @@ export default {
         commit("CLEAR_ERROR")
       },
 
+      setEditProfile({commit}, payload) {
+        commit("SET_EDIT_PROFILE", payload)
+      },
+
       setError ({commit}, payload) {
         commit("SET_ERROR", payload)
       }
@@ -32,6 +40,9 @@ export default {
       },
       error (state) {
         return state.error
+      },
+      profileEdit (state) {
+        return state.profileEdit
       }
     }
   }

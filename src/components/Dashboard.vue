@@ -1,6 +1,6 @@
 <template>
     <div class="col-12 mx-auto">
-        <div class="container-fluid">
+        <div class="container">
             <router-view/>
         </div>
     </div>

@@ -1,10 +1,19 @@
 <template>
-    <PersonalInfoCard></PersonalInfoCard>
+  <div class="container-fluid my-5">
+    <div class="row">
+      <div class="col-xs-auto col-4 px-1" id="sticky-sidebar">
+        <ProfileSidebar></ProfileSidebar>
+      </div>
+      <div class="col-8" id="main">
+        <ProfileCard></ProfileCard>
+      </div>
+    </div>
+  </div>
 </template>
 
 <script>
-import PersonalInfoCard from '@/components/PersonalInfoCard';
-
+import ProfileCard from '@/components/Profile/ProfileCard';
+import ProfileSidebar from '@/components/Profile/ProfileSideBar';
 export default {
     data() {
     return {
@@ -29,13 +38,13 @@ export default {
         }
     },
     components: {
-        PersonalInfoCard,
+        ProfileCard,
+        ProfileSidebar
     }
 }
 </script>
 
 <style scoped>
-
 .card-profile {
   border: 0;
   border-radius: 1rem;
