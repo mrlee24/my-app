@@ -1,7 +1,7 @@
 <template>
   <div class="row">
-    <div class="col-md-2 col-lg-12">
-      <div class="card card-profile my-5">
+    <div class="col-xs-8 col-sm-8 col-md-8 col-lg-12">
+      <div class="card card-profile">
         <div class="card-body">
           <h5 class="card-title text-center">Personal Info</h5>
           <hr />

@@ -1,6 +1,14 @@
 <template>
     <b-navbar toggleable="lg" type="dark" variant="info">
-      <div class="container">
+      <div>
+        <b-button v-b-toggle.sidebar-backdrop class="navbar-toggler-icon mr-3 btn-lg"></b-button>
+        <b-sidebar 
+          id="sidebar-backdrop"
+          backdrop-variant="transparent"
+          backdrop no-header shadow>
+          <ToggleSidebar></ToggleSidebar>
+        </b-sidebar>
+      </div>
       <b-navbar-brand to="/">WebApp</b-navbar-brand>
       <b-navbar-toggle target="nav-collapse"></b-navbar-toggle>
         <b-collapse id="nav-collapse" is-nav>
@@ -26,12 +34,16 @@
             </template>
           </b-navbar-nav>
         </b-collapse>
-      </div>
     </b-navbar>
 </template>
 
 <script>
+
+import ToggleSidebar from '@/components/ToggleSidebar';
 export default {
+  components: {
+    ToggleSidebar,
+  },
   computed: {
     user () {
       return this.$store.getters.user

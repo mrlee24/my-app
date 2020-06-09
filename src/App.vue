@@ -2,8 +2,7 @@
   <div id="app">
     <Navbar></Navbar>
     <div v-if="user.loggedIn" class="container-sticky">
-      <div class="row">
-        <Sidebar></Sidebar>
+      <div class="row" id="body-row">
         <Dashboard></Dashboard>
       </div>
     </div>
@@ -15,7 +14,6 @@
 
 <script>
 import Navbar from '@/components/Navbar';
-import Sidebar from '@/components/Sidebar';
 import Dashboard from '@/components/Dashboard';
 
 export default {
@@ -23,7 +21,6 @@ export default {
 
   components: {
     Navbar,
-    Sidebar,
     Dashboard
   },
 
@@ -39,5 +36,4 @@ export default {
 </script>
 
 <style scoped>
-
 </style>

@@ -1,5 +1,5 @@
 <template>
-    <div class="col-10 mx-auto">
+    <div class="col-12 mx-auto">
         <div class="container-fluid">
             <router-view/>
         </div>
