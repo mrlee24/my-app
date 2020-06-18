@@ -22,7 +22,7 @@ function lazyLoad(view) {
     component: Home
   },
   {
-    path: '/admin',
+    path: '/Admin',
     name: 'admin',
     component: AdminHome
   },

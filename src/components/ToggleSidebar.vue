@@ -25,23 +25,21 @@
               </div>
             </b-collapse>
            
-            <!-- Separator with title -->
-            <li class="list-group-item sidebar-separator-title text-muted d-flex align-items-center menu-collapsed bg-dark">
-                <span class="container text-center">OPTIONS</span>
-            </li>
-            <!-- /END Separator -->
-            <a href="#" class="bg-dark list-group-item list-group-item-action">
-                <div class="d-flex w-100 justify-content-start align-items-center">
-                    <span class="fa fa-calendar fa-fw mr-3"></span>
-                    <span class="menu-collapsed">Calendar</span>
+            <b-button v-b-toggle.collapse-1 class="bg-dark list-group-item list-group-item-action flex-column align-items-start text-white">
+               <div class="d-flex w-100 justify-content-start align-items-center container">
+                    <span class="mr-3"><b-icon icon="archive-fill"></b-icon></span>
+                    <span class="menu-collapsed">Dashboard</span>
+                    <span class="ml-auto"><b-icon icon="caret-down-fill"></b-icon></span>
                 </div>
-            </a>
-            <a href="#" class="bg-dark list-group-item list-group-item-action">
-                <div class="d-flex w-100 justify-content-start align-items-center">
-                    <span class="fa fa-envelope-o fa-fw mr-3"></span>
-                    <span class="menu-collapsed">Messages <span class="badge badge-pill badge-primary ml-2">5</span></span>
-                </div>
-            </a>
+            </b-button>
+            <b-collapse id="collapse-1">
+              <div class="sidebar-submenu text-center">
+                <b-button v-b-toggle.collapse-1-inner class="list-group-item list-group-item-action bg-dark text-white" to="/Admin">Users</b-button>
+                <a href="#" class="list-group-item list-group-item-action bg-dark text-white">
+                    <span class="menu-collapsed">Timesheets</span>
+                </a>
+              </div>
+            </b-collapse>
             <!-- Separator without title -->
             <li class="list-group-item sidebar-separator menu-collapsed bg-dark"></li>
             <!-- /END Separator -->
