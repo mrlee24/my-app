@@ -1,6 +1,4 @@
 import * as firebase from 'firebase'
-require('firebase/firestore');
-
 const state = {
     user: { loggedIn: false, data: null }
 }

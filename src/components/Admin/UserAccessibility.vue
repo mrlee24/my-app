@@ -1,7 +1,6 @@
 <template>
-  <div>
-    <b-row>
-      <b-col lg="6" class="my-1">
+    <div>
+        <b-col lg="6" class="my-1">
             <b-form-group
             label="Sort"
             label-cols-sm="3"
@@ -107,126 +106,15 @@
             class="my-0"
             ></b-pagination>
         </b-col>
-    </b-row>
-    <b-row>
-      <b-col>
-        <div class="float-right my-4">
-          <b-button v-b-modal.add-user-modal class="mr-2" variant="primary" description="Add a new user">Add User</b-button>
-          <b-button class="mr-sm-2" variant="info">Edit User</b-button>
-          <b-button class="mr-sm-2" variant="danger">Delete User</b-button>
-          <b-modal id="add-user-modal" size="lg" hide-footer><AddUserModal></AddUserModal></b-modal>
-        </div>
-      </b-col>
-    </b-row>
-    <b-row>
-      <b-col>
-          <b-table
-            id="table-transition"
-            ref="selectableTable"
-            select-mode="multi"
-            selected-variant="info"
-            selectable bordered striped hover small
-            responsive="sm"
-            @row-selected="onRowSelected"
-            :items="items"
-            :fields="fields"
-            :current-page="currentPage"
-            :per-page="perPage"
-            :filter="filter"
-            :filterIncludedFields="filterOn"
-            :sort-by.sync="sortBy"
-            :sort-desc.sync="sortDesc"
-            :sort-direction="sortDirection"
-            @filtered="onFiltered"
-            primary-key="a"
-            :tbody-transition-props="transProps">
-          </b-table>
-      </b-col>
-    </b-row>
-  </div>
+    </div>
 </template>
 
 <script>
+export default {
 
-import AddUserModal from '@/components/Admin/AddUserModal' 
-  export default {
-    components: {
-      AddUserModal,
-    },
-    data() {
-      return {
-        selected: [],
-        transProps: {
-          // Transition name
-          name: 'flip-list'
-        },
-        items: [
-          { a: 2, b: 'Two', c: 'Moose' },
-          { a: 1, b: 'Three', c: 'Dog' },
-          { a: 3, b: 'Four', c: 'Cat' },
-          { a: 4, b: 'One', c: 'Mouse' },
-        ],
-
-        fields: [
-          { key: 'a', label: 'Name', sortable: true, sortByFormatted: true, filterByFormatted: true },
-          { key: 'b', sortable: true },
-          { key: 'c', sortable: true }
-        ],
-
-        totalRows: 1,
-        currentPage: 1,
-        perPage: 5,
-        pageOptions: [5, 10, 15],
-        sortBy: '',
-        sortDesc: false,
-        sortDirection: 'asc',
-        filter: null,
-        filterOn: [],
-        infoModal: {
-          id: 'info-modal',
-          title: '',
-          content: ''
-        }
-      }
-    },
-    computed: {
-      sortOptions() {
-        // Create an options list from our fields
-        return this.fields
-          .filter(f => f.sortable)
-          .map(f => {
-            return { text: f.label, value: f.key }
-          })
-      }
-    },
-    mounted() {
-      // Set the initial number of items
-      this.totalRows = this.items.length
-    },
-    methods: {
-      onRowSelected(items) {
-        this.selected = items
-      },
-      info(item, index, button) {
-        this.infoModal.title = `Row index: ${index}`
-        this.infoModal.content = JSON.stringify(item, null, 2)
-        this.$root.$emit('bv::show::modal', this.infoModal.id, button)
-      },
-      resetInfoModal() {
-        this.infoModal.title = ''
-        this.infoModal.content = ''
-      },
-      onFiltered(filteredItems) {
-        // Trigger pagination to update the number of buttons/pages due to filtering
-        this.totalRows = filteredItems.length
-        this.currentPage = 1
-      }
-    },
-  }
+}
 </script>
 
 <style>
-    table#table-transition .flip-list-move {
-        transition: transform 1s;
-    }
+
 </style>

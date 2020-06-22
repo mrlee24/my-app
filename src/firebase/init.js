@@ -1,3 +1,6 @@
+import firebase from 'firebase'
+import 'firebase/firestore'
+
 const configOptions = {
     apiKey: "AIzaSyBZbS5nhN_QxOnFyogMP3sZ0jqZRsiEFss",
     authDomain: "tenant-manage.firebaseapp.com",
@@ -10,7 +13,15 @@ const configOptions = {
   };
   
   firebase.initializeApp(configOptions);
-  firebase.auth().onAuthStateChanged(user => {
-    store.dispatch("fetchUser", user);
-  });
+
+  const db = firebase.firestore()
+
+  // firebase.auth().onAuthStateChanged(user => {
+  //   store.dispatch("fetchUser", user);
+  // });
+
+  export {
+    firebase,
+    db
+  }
   

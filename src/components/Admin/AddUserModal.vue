@@ -52,7 +52,7 @@
         </b-card-text>
         <template v-slot:footer>
             <div class="text-center">  
-                <b-button class="mr-sm-2" variant="info">Add</b-button>
+                <b-button class="mr-sm-2" @click.prevent="addUser" variant="info">Add</b-button>
                 <b-button class="mr-sm-2" @click.prevent="clearField" variant="danger">Clear</b-button>
             </div>
         </template>
@@ -61,8 +61,9 @@
 </template>
 
 <script>
-// import * as firebase from "firebase"
-// import db from 'firebase/firestore'
+// import * as firebase from "firebase/app"
+// import 'firebase/firestore';
+// const db = firebase.firestore()
 export default {
     data() {
         return {
@@ -81,29 +82,33 @@ export default {
             },
         }
     },
-
+    
     methods: {
         // addUser() {
         //     let ref = db.collection('users').doc()
         //     ref.get().then(doc => {
-        //         firebase.auth().createUserWithEmailAndPassword(this.form.email, this.form.password)
-        //         .then(user => {
-        //             ref.set({
-        //                 user_id: user.uid,
-        //                 email: user.email,
-        //                 password: user.password
+        //         if(!doc.exists) {
+        //             firebase.auth().createUserWithEmailAndPassword(this.form.email, this.form.password, this.form.name, this.form.claim)
+        //             .then(user => {
+        //                 ref.set({
+        //                     user_id: user.uid,
+        //                     email: user.email,
+        //                     password: user.password,
+        //                     name: user.name, 
+        //                     claim: user.claim
+        //                 })
         //             })
-        //         })
-        //         .catch(err => {
-        //             console.log(err)
-        //         })
+        //             .catch(err => {
+        //                 console.log(err)
+        //             })
+        //         }
         //     })
         // },
 
-        // clearField() {
-        //     this.form.email = '',
-        //     this.form.password = ''
-        // }
+        clearField() {
+            this.form.email = '',
+            this.form.password = ''
+        }
     }
 }
 </script>

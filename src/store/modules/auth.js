@@ -17,28 +17,51 @@ export const mutations = {
 
     SET_USER (state, data) {
         state.user.data = data;
-    }
+    },
 }
 
 export const actions = {
+    // signUserIn ({ commit }, payload) {
+    //     commit('SET_LOADING', true)
+    //     commit('CLEAR_ERROR')
+    //     firebase.auth().signInWithEmailAndPassword(payload.email, payload.password)
+            // .then (
+            //     commit("SET_USER", {
+            //         id: payload.uid,
+            //         displayName: payload.displayName,
+            //         email: payload.email,
+            //         photoURL: payload.photoURL})
+            // )
+    //         .catch(error => {
+    //           commit('SET_LOADING', false)
+    //           commit('SET_ERROR', error)
+    //           console.log(error)
+    //         }
+    //       )
+    //   },
+
     signUserIn ({ commit }, payload) {
         commit('SET_LOADING', true)
         commit('CLEAR_ERROR')
+
         firebase.auth().signInWithEmailAndPassword(payload.email, payload.password)
-            .then (
-                commit("SET_USER", {
-                    id: payload.uid,
-                    displayName: payload.displayName,
-                    email: payload.email,
-                    photoURL: payload.photoURL})
-            )
-            .catch(error => {
-              commit('SET_LOADING', false)
-              commit('SET_ERROR', error)
-              console.log(error)
-            }
-          )
-      },
+        .then (
+            commit("SET_USER", {
+                id: payload.uid,
+                displayName: payload.displayName,
+                email: payload.email,
+                photoURL: payload.photoURL,
+                claim: firebase.firestore().collection('users').doc("5R6AUbs3X2MFLttn56tlSJfHx2G3").get()
+            })
+        )
+        // .then(
+        //     firebase.firestore().collection('users').doc(payload.uid).get().then(function(doc) {
+        //         if(doc.exists) {
+        //             console.log(doc.data())
+        //         }
+        //     })
+        // )
+    },
 
     signUserOut ({ commit }) {
         firebase.auth().signOut().then(() => {
