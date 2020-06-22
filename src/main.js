@@ -7,7 +7,9 @@ import { BootstrapVue, IconsPlugin } from 'bootstrap-vue'
 import 'bootstrap/dist/css/bootstrap.css'
 import 'bootstrap-vue/dist/bootstrap-vue.css'
 import * as firebase from "firebase";
+require('firebase/firestore');
 
+Vue.prototype.$firebase = firebase;
 Vue.use(BootstrapVue)
 Vue.use(IconsPlugin)
 
